@@ -1,0 +1,11 @@
+<h2>Confirm Delete</h2>
+<p>Are you sure you want to delete this expense?</p>
+
+<p><strong>{{ expense.category }}</strong> — ₹{{ expense.amount }} on {{ expense.date }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Yes, delete">
+</form>
+
+<p><a href="{% url 'dashboard' %}">Cancel</a></p>
