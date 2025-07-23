@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'Expense_Tracker.urls'
+ROOT_URLCONF = 'ExpenseTracker.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Expense_Tracker.wsgi.application'
+WSGI_APPLICATION = 'ExpenseTracker.wsgi.application'
 
 
 # Database
