@@ -1,91 +1,97 @@
-<!-- ✅ Add a filter form -->
+<!-- Wrap everything in a main container -->
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
 
-<h3>Filter Expenses</h3>
-<form method="GET">
+  <!-- Filter Form -->
+  <h3 style="text-align: center;">Filter Expenses</h3>
+  <form method="GET" style="text-align: center; margin-bottom: 20px;">
     Category:
     <select name="category">
-        <option>All</option>
-        <option>Food</option>
-        <option>Transport</option>
-        <option>Rent</option>
-        <option>Utilities</option>
-        <option>Other</option>
+      <option>All</option>
+      <option>Food</option>
+      <option>Transport</option>
+      <option>Rent</option>
+      <option>Utilities</option>
+      <option>Other</option>
     </select>
-
-    From:
+    &nbsp; From:
     <input type="date" name="start_date">
-
-    To:
+    &nbsp; To:
     <input type="date" name="end_date">
+    &nbsp; <input type="submit" value="Apply Filter">
+  </form>
 
-    <input type="submit" value="Apply Filter">
-</form>
+  <!-- Chart -->
+  <h3 style="text-align: center;">Spending by Category</h3>
 
-<!-- ✅ Add a Pie Chart for category spending -->
+  <div style="max-width: 400px; margin: 0 auto 40px;">
+    <canvas id="categoryChart" width="400" height="400"></canvas>
+  </div>
 
-<h3>Spending by Category</h3>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<canvas id="categoryChart" width="400" height="400"></canvas>
-
-<!-- Safe JSON for Chart.js -->
-<script id="category-data" type="application/json">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script id="category-data" type="application/json">
     {{ total_by_category_json|safe }}
-</script>
-
-<script>
+  </script>
+  <script>
     const data = JSON.parse(document.getElementById('category-data').textContent);
     const labels = data.map(item => item.category);
     const totals = data.map(item => item.total);
 
     const ctx = document.getElementById('categoryChart').getContext('2d');
     const categoryChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Total Spent',
-                data: totals,
-                backgroundColor: [
-                    '#FF6384',
-                    '#36A2EB',
-                    '#FFCE56',
-                    '#4BC0C0',
-                    '#9966FF',
-                    '#FF9F40',
-                ],
-            }]
-        }
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Total Spent',
+          data: totals,
+          backgroundColor: [
+            '#FF6384',
+            '#36A2EB',
+            '#FFCE56',
+            '#4BC0C0',
+            '#9966FF',
+            '#FF9F40',
+          ],
+        }]
+      }
     });
-</script>
+  </script>
 
-<h2>Your Expenses</h2>
+  <!-- Expenses Section -->
+  <h2 style="text-align: center;">Your Expenses</h2>
 
-<p><a href="{% url 'add_expense' %}">➕ Add New Expense</a></p>
+  <p style="text-align: center;">
+    <a href="{% url 'add_expense' %}">➕ Add New Expense</a>
+  </p>
 
-<table border="1">
-    <tr>
-        <th>Date</th>
-        <th>Category</th>
-        <th>Amount (₹)</th>
-        <th>Description</th>
-        <th>Actions</th>
-    </tr>
-    {% for expense in expenses %}
-    <tr>
-        <td>{{ expense.date }}</td>
-        <td>{{ expense.category }}</td>
-        <td>{{ expense.amount }}</td>
-        <td>{{ expense.description }}</td>
-        <td>
-            <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
-            <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+  <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+    <thead>
+      <tr>
+        <th style="border: 1px solid #ddd; padding: 10px;">Date</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">Category</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">Amount (₹)</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">Description</th>
+        <th style="border: 1px solid #ddd; padding: 10px;">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for expense in expenses %}
+      <tr>
+        <td style="border: 1px solid #ddd; padding: 10px;">{{ expense.date }}</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">{{ expense.category }}</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">{{ expense.amount }}</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">{{ expense.description }}</td>
+        <td style="border: 1px solid #ddd; padding: 10px;">
+          <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
+          <a href="{% url 'delete_expense' expense.id %}">Delete</a>
         </td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="5">No expenses found.</td>
-    </tr>
-    {% endfor %}
-</table>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 20px;">No expenses found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
