@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+  color: #333;
+}
+
+header {
+  background: #4CAF50;
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+main {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+main p {
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+.buttons a {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 12px 24px;
+  background: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.buttons a:hover {
+  background: #45a049;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #eee;
+  margin-top: 40px;
+}
